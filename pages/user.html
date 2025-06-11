@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mi cuenta | MiEcommerce</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <div id="header-container"></div>
+
+  <main class="contenedor-user">
+    <h1>Mi cuenta</h1>
+
+    <div class="panel-usuario">
+      <aside class="menu-usuario">
+        <ul>
+          <li><a href="#pedidos" class="activo">🧾 Mis pedidos</a></li>
+          <li><a href="#perfil">👤 Datos personales</a></li>
+          <li><a href="#direccion">🏠 Direcciones</a></li>
+          <li><a href="#seguridad">🔒 Seguridad</a></li>
+          <li><a href="/index.html">🚪 Cerrar sesión</a></li>
+        </ul>
+      </aside>
+
+      <section class="contenido-usuario">
+        <div id="pedidos" class="seccion-usuario">
+          <h2>Mis pedidos</h2>
+          <div class="pedido">
+            <p><strong>#000123</strong> - Samsung Galaxy A54 - <span class="estado">En camino</span></p>
+            <small>Fecha: 01/06/2025 - Total: $1.200.000</small>
+          </div>
+          <!-- Más pedidos aquí -->
+        </div>
+
+        <div id="perfil" class="seccion-usuario oculto">
+          <h2>Datos personales</h2>
+          <form>
+            <label>Nombre completo <input type="text" value="Juan Pérez"></label>
+            <label>Correo electrónico <input type="email" value="juan@email.com"></label>
+            <button type="submit">Guardar cambios</button>
+          </form>
+        </div>
+
+        <div id="direccion" class="seccion-usuario oculto">
+          <h2>Direcciones</h2>
+          <p>🏠 Calle 123 #45-67, Barranquilla</p>
+          <button>Editar dirección</button>
+        </div>
+
+        <div id="seguridad" class="seccion-usuario oculto">
+          <h2>Cambiar contraseña</h2>
+          <form>
+            <label>Contraseña actual <input type="password"></label>
+            <label>Nueva contraseña <input type="password"></label>
+            <label>Confirmar nueva <input type="password"></label>
+            <button type="submit">Actualizar contraseña</button>
+          </form>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <div id="footer-container"></div>
+
+  <script src="/js/main.js"></script>
+  <script>
+    // Interacción de pestañas en el panel del usuario
+    document.querySelectorAll('.menu-usuario a').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+
+        document.querySelectorAll('.seccion-usuario').forEach(sec => sec.classList.add('oculto'));
+        document.querySelectorAll('.menu-usuario a').forEach(a => a.classList.remove('activo'));
+
+        const target = link.getAttribute('href');
+        document.querySelector(target).classList.remove('oculto');
+        link.classList.add('activo');
+      });
+    });
+  </script>
+</body>
+</html>

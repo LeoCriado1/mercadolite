@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Panel del Vendedor | MiEcommerce</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <!-- Header -->
+  <div id="header-container"></div>
+
+  <main class="contenedor-panel-vendedor">
+    <h1>Panel de Control del Vendedor</h1>
+
+    <section class="estadisticas-vendedor">
+      <div class="estadistica-item">
+        <h3>Productos</h3>
+        <p id="total-productos">0</p>
+      </div>
+      <div class="estadistica-item">
+        <h3>Ventas</h3>
+        <p id="total-ventas">0</p>
+      </div>
+      <div class="estadistica-item">
+        <h3>Ingresos</h3>
+        <p id="total-ingresos">$0</p>
+      </div>
+    </section>
+
+    <section class="productos-administrar">
+      <h2>Mis productos</h2>
+      <button id="btn-nuevo-producto" class="btn-primario">+ Agregar producto</button>
+
+      <table id="tabla-productos">
+        <thead>
+          <tr>
+            <th>Imagen</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Aquí se llenarán los productos vía JS -->
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Modal para agregar/editar producto -->
+    <div id="modal-producto" class="modal oculto">
+      <div class="modal-contenido">
+        <h3 id="modal-titulo">Nuevo producto</h3>
+        <form id="form-producto">
+          <label for="nombre">Nombre:</label>
+          <input type="text" id="nombre" name="nombre" required />
+
+          <label for="precio">Precio:</label>
+          <input type="number" id="precio" name="precio" min="0" required />
+
+          <label for="stock">Stock:</label>
+          <input type="number" id="stock" name="stock" min="0" required />
+
+          <label for="imagen">URL de imagen:</label>
+          <input type="url" id="imagen" name="imagen" required />
+
+          <div class="modal-botones">
+            <button type="submit" class="btn-primario">Guardar</button>
+            <button type="button" id="btn-cerrar-modal" class="btn-secundario">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <div id="footer-container"></div>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/seller-panel.js"></script>
+</body>
+</html>

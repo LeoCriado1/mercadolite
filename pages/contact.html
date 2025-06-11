@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Contacto | MiEcommerce</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <!-- Header -->
+  <div id="header-container"></div>
+
+  <main class="contenedor-contact">
+    <h1>Contacto</h1>
+    <p>¿Tienes alguna pregunta o necesitas ayuda? Completa el siguiente formulario y te responderemos a la brevedad.</p>
+
+    <form id="contactForm" action="#" method="POST" novalidate>
+      <label for="name">Nombre completo:</label>
+      <input type="text" id="name" name="name" placeholder="Tu nombre" required />
+
+      <label for="email">Correo electrónico:</label>
+      <input type="email" id="email" name="email" placeholder="tu@email.com" required />
+
+      <label for="subject">Asunto:</label>
+      <input type="text" id="subject" name="subject" placeholder="Asunto del mensaje" required />
+
+      <label for="message">Mensaje:</label>
+      <textarea id="message" name="message" rows="5" placeholder="Escribe tu mensaje aquí..." required></textarea>
+
+      <button type="submit" class="btn-enviar">Enviar</button>
+    </form>
+
+    <div id="formResponse" role="alert" aria-live="polite" style="margin-top: 15px;"></div>
+  </main>
+
+  <!-- Footer -->
+  <div id="footer-container"></div>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

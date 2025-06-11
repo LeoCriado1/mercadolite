@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkout | MiEcommerce</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <div id="header-container"></div>
+
+  <main class="contenedor-checkout">
+    <h1>Confirmar Compra</h1>
+
+    <form class="formulario-checkout">
+      <!-- Sección 1: Dirección de envío -->
+      <section class="bloque-checkout">
+        <h2>Dirección de envío</h2>
+        <input type="text" placeholder="Nombre completo" required>
+        <input type="text" placeholder="Dirección" required>
+        <input type="text" placeholder="Ciudad" required>
+        <input type="text" placeholder="Departamento" required>
+        <input type="text" placeholder="Código postal" required>
+        <input type="tel" placeholder="Teléfono de contacto" required>
+      </section>
+
+      <!-- Sección 2: Método de pago -->
+      <section class="bloque-checkout">
+        <h2>Método de pago</h2>
+        <label><input type="radio" name="pago" checked> Tarjeta de crédito</label>
+        <label><input type="radio" name="pago"> PSE / Transferencia</label>
+        <label><input type="radio" name="pago"> Contraentrega</label>
+      </section>
+
+      <!-- Sección 3: Resumen del pedido -->
+      <section class="bloque-checkout resumen">
+        <h2>Resumen del pedido</h2>
+        <ul id="checkout-cart-list">
+          <!-- Los productos del carrito se cargarán aquí dinámicamente -->
+        </ul>
+        <p><strong>Total: <span id="checkout-total">$0</span></strong></p>
+      </section>
+
+      <!-- Botón de confirmación -->
+      <button type="submit" class="btn-finalizar">Finalizar compra</button>
+    </form>
+  </main>
+
+  <!-- Footer -->
+  <div id="footer-container"></div>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/main.js"></script>
+  <script>
+    // Suponiendo que el carrito está guardado en localStorage como 'cart'
+    document.addEventListener('DOMContentLoaded', function() {
+      const cartList = document.getElementById('checkout-cart-list');
+      const totalSpan = document.getElementById('checkout-total');
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      let total = 0;
+
+      cartList.innerHTML = '';
+      cart.forEach(item => {
+        const li = document.createElement('li');
+        li.innerHTML = `${item.nombre} x${item.cantidad} - <strong>$${(item.precio * item.cantidad).toLocaleString('es-CO')}</strong>`;
+        cartList.appendChild(li);
+        total += item.precio * item.cantidad;
+      });
+
+      totalSpan.textContent = `$${total.toLocaleString('es-CO')}`;
+    });
+  </script>
+</body>
+</html>

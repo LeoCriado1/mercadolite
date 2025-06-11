@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Carrito de compras | MiEcommerce</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <div id="header-container"></div>
+
+  <main class="contenedor-carrito">
+    <h1>Carrito de Compras</h1>
+
+    <div class="carrito-productos" id="carrito-productos">
+      <!-- Los productos del carrito se renderizan aquí -->
+    </div>
+
+    <div class="resumen-carrito">
+      <h3>Total: <span id="total">$0</span></h3>
+      <a href="/pages/checkout.html" class="btn-comprar" id="btn-comprar">Proceder al Pago</a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <div id="footer-container"></div>
+
+  <script>
+    // Utiliza localStorage para guardar el carrito
+    function obtenerCarrito() {
+      return JSON.parse(localStorage.getItem('carrito')) || [];
+    }
+
+    function guardarCarrito(carrito) {
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+    }
+
+    function formatearPrecio(valor) {
+      return '$' + valor.toLocaleString('es-CO');
+    }
+
+    function renderizarCarrito() {
+      const carrito = obtenerCarrito();
+      const contenedor = document.getElementById('carrito-productos');
+      contenedor.innerHTML = '';
+      let total = 0;
+
+      if (carrito.length === 0) {
+        contenedor.innerHTML = '<p>Tu carrito está vacío.</p>';
+        document.getElementById('total').textContent = '$0';
+        document.getElementById('btn-comprar').classList.add('disabled');
+        return;
+      } else {
+        document.getElementById('btn-comprar').classList.remove('disabled');
+      }
+
+      carrito.forEach((producto, idx) => {
+        const subtotal = producto.precio * producto.cantidad;
+        total += subtotal;
+
+        const div = document.createElement('div');
+        div.className = 'producto-en-carrito';
+        div.innerHTML = `
+          <img src="${producto.imagen}" alt="${producto.nombre}">
+          <div class="info">
+            <h2>${producto.nombre}</h2>
+            <p>Precio unitario: <strong>${formatearPrecio(producto.precio)}</strong></p>
+            <label>
+              Cantidad:
+              <input type="number" min="1" value="${producto.cantidad}" class="cantidad" data-idx="${idx}">
+            </label>
+            <button class="eliminar" data-idx="${idx}">Eliminar</button>
+          </div>
+          <div class="subtotal">
+            <p>Subtotal: <strong>${formatearPrecio(subtotal)}</strong></p>
+          </div>
+        `;
+        contenedor.appendChild(div);
+      });
+
+      document.getElementById('total').textContent = formatearPrecio(total);
+    }
+
+    // Cambiar cantidad
+    document.addEventListener('input', function(e) {
+      if (e.target.classList.contains('cantidad')) {
+        const idx = e.target.getAttribute('data-idx');
+        let carrito = obtenerCarrito();
+        let nuevaCantidad = parseInt(e.target.value);
+        if (nuevaCantidad < 1) nuevaCantidad = 1;
+        carrito[idx].cantidad = nuevaCantidad;
+        guardarCarrito(carrito);
+        renderizarCarrito();
+      }
+    });
+
+    // Eliminar producto
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('eliminar')) {
+        const idx = e.target.getAttribute('data-idx');
+        let carrito = obtenerCarrito();
+        carrito.splice(idx, 1);
+        guardarCarrito(carrito);
+        renderizarCarrito();
+      }
+    });
+
+    // Deshabilitar botón si el carrito está vacío
+    document.getElementById('btn-comprar').addEventListener('click', function(e) {
+      if (obtenerCarrito().length === 0) {
+        e.preventDefault();
+      }
+    });
+
+    // Renderiza al cargar
+    renderizarCarrito();
+  </script>
+  <script src="/js/main.js"></script>
+</body>
+</html>
